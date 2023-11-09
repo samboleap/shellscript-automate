@@ -1,8 +1,0 @@
----
-- name: Install Nginx , Docker and Java
-  hosts: hosts
-  become: true
-  roles:
-    - installDocker
-    - installJava
-    - installNginx
