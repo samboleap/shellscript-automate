@@ -1,3 +1,3 @@
-ansible-playbook -i host.ini installNginx/playbook.yml &&
-ansible-playbook -i host.ini installJava/playbook.yml &&
-ansible-playbook -i host.ini installDocker/playbook.yml
+ansible-playbook -i host.ini /roles/installNginx/playbook.yml &&
+ansible-playbook -i host.ini /roles/installJava/playbook.yml &&
+ansible-playbook -i host.ini /roles/installDocker/playbook.yml
