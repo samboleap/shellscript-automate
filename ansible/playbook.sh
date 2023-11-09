@@ -1,5 +1,5 @@
 #!/bin/bash
 
-ansible-playbook -i host.ini /roles/installNginx/playbook.yml &&
-ansible-playbook -i host.ini /roles/installJava/playbook.yml &&
-ansible-playbook -i host.ini /roles/installDocker/playbook.yml
+ansible-playbook -i host.ini /root/shellscript-automate/ansible/installNginx/playbook.yml &&
+ansible-playbook -i host.ini /root/shellscript-automate/ansible/installJava/playbook.yml &&
+ansible-playbook -i host.ini /root/shellscript-automate/ansible/installDocker/playbook.yml
