@@ -23,8 +23,9 @@ done
 copy_ssh_key() {
   local username=$1
   local ip=$2
-  scp -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub "$username@$ip:~/temp_key.pub"
-  ssh -o StrictHostKeyChecking=no "$username@$ip" "mkdir -p ~/.ssh && cat ~/temp_key.pub >> ~/.ssh/authorized_keys && rm ~/temp_key.pub"
+  read -s -p "Enter password for $username@$ip: " password
+  echo
+  sshpass -p "$password" ssh-copy-id -o StrictHostKeyChecking=no "$username@$ip"
 }
 
 # Loop through the node servers and copy the SSH public key
