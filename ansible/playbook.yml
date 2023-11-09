@@ -2,13 +2,7 @@
 - name: Install Nginx , Docker and Java
   hosts: hosts
   become: true
-
   roles:
-    - role: installJava
-      when: inventory_hostname == 'hosts'
-
-    - role: installDocker
-      when: inventory_hostname == 'hosts'
-
-    - role: installNginx
-      when: inventory_hostname == 'hosts'
+    - installDocker
+    - installJava
+    - installNginx
