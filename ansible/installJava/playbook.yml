@@ -17,8 +17,5 @@
         create: yes
         validate: 'bash -n %s'
 
-    - name: Reload system environment
-      command: source /etc/environment
-
     - name: Verify Java installation
-      command: java -version
+      command: java --version
