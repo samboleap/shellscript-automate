@@ -1,0 +1,14 @@
+---
+- name: Install Nginx and Apache
+  hosts: ansible_client
+  become: true
+
+  roles:
+    - role: installJava
+      when: inventory_hostname == 'hosts'
+
+    - role: installDocker
+      when: inventory_hostname == 'hosts'
+
+    - role: installNginx
+      when: inventory_hostname == 'hosts'

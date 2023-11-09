@@ -1,0 +1,24 @@
+---
+- name: Install JDK 17 and configure it
+  hosts: hosts
+  become: true
+
+  tasks:
+    - name: Install OpenJDK 17 package
+      package:
+        name: openjdk-17-jdk
+        state: present
+
+    - name: Set JAVA_HOME environment variable
+      lineinfile:
+        path: /etc/environment
+        line: 'JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"'
+        state: present
+        create: yes
+        validate: 'bash -n %s'
+
+    - name: Reload system environment
+      command: source /etc/environment
+
+    - name: Verify Java installation
+      command: java -version
