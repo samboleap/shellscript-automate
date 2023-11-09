@@ -1,6 +1,6 @@
 ---
-- name: Install Nginx and Apache
-  hosts: ansible_client
+- name: Install Nginx , Docker and Java
+  hosts: hosts
   become: true
 
   roles:
