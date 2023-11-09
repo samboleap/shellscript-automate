@@ -1,0 +1,22 @@
+---
+- name: Install Nginx and Start service
+  hosts: hosts
+  become: true
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: latest
+
+    - name: Create document root
+      file:
+        path: "/var/www/nginx/html"
+        state: directory
+        owner: "root"
+        mode: '0755'
+
+    - name: Start Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: true

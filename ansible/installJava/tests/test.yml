@@ -1,3 +1,0 @@
----
-- hosts: hosts
-  remote_user: root

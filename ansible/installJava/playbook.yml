@@ -1,6 +1,6 @@
 ---
 - name: Install JDK 17 and configure it
-  hosts: server1,server2
+  hosts: hosts
   become: true
 
   tasks:

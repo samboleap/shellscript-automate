@@ -1,3 +1,0 @@
----
-# defaults file for nginx_role
-ansible_user: root

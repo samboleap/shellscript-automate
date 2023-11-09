@@ -1,3 +1,0 @@
----
-# defaults file for nginx_role
-type_of_webserver: Nginx
