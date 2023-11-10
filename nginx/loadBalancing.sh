@@ -34,10 +34,6 @@ if [[ -e $nginx_conf ]]; then
     exit 1
 fi
 
-# Install the required packages
-sudo apt update
-sudo apt install -y nginx certbot
-
 # Configure the Nginx server
 nginx_server="
 http {
