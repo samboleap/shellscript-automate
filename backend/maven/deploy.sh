@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Jenkins Authentication 
-username="SBL"
+username="master-jenkins"
 token="115cde8cb44bc1dbf8dff90a9985d34b76"
 jenkins_url="http://34.121.191.11:8080"
 
@@ -71,15 +71,15 @@ echo "Your Registry Name is: $registryDocker"
 echo "============================================================================"
 
 while true; do
-    read -p "Please input your image name (e.g., reactjs or springboot): " buildContainerName
-    if [ -n "$buildContainerName" ]; then
+    read -p "Please input your image name (e.g., reactjs or springboot): " buildcontainerNameBackEnd
+    if [ -n "$buildcontainerNameBackEnd" ]; then
         break
     else
         echo "Can not leave without input! Please input to continue....."
     fi
 done
 
-echo "Your Image Name is: $buildContainerName"
+echo "Your Image Name is: $buildcontainerNameBackEnd"
 
 echo "============================================================================"
 
@@ -97,15 +97,15 @@ echo "You Docker Tag is: $dockerTag"
 echo "============================================================================"
 
 while true; do
-    read -p "Please input your Container Name for specific Docker: " containerName
-    if [ -n "$containerName" ]; then
+    read -p "Please input your Container Name for specific Docker: " containerNameBackEnd
+    if [ -n "$containerNameBackEnd" ]; then
         break
     else
         echo "Can not leave without input! Please input to continue....."
     fi
 done
 
-echo "Your Container Name is: $containerName"
+echo "Your Container Name is: $containerNameBackEnd"
 
 echo "============================================================================"
 
@@ -165,31 +165,31 @@ java -jar jenkins-cli.jar -auth $username:$token -s $jenkins_url -webSocket buil
     -p deployDocker=$deployDocker \
     -p choice=$choice \
     -p registryDocker="$registryDocker" \
-    -p buildContainerName="$buildContainerName" \
-    -p containerName="$containerName" \
+    -p buildcontainerNameBackEnd="$buildcontainerNameBackEnd" \
+    -p containerNameBackEnd="$containerNameBackEnd" \
     -p dockerTag="$dockerTag" \
     -p repoUrl="$repoUrl" \
     $jenkins_job
 
 # Function to check if a Docker container is running
 is_container_running() {
-    local containerName=$1
-    local status=$(docker inspect -f '{{.State.Status}}' "$containerName" 2>/dev/null)
+    local containerNameBackEnd=$1
+    local status=$(docker inspect -f '{{.State.Status}}' "$containerNameBackEnd" 2>/dev/null)
     
     if [[ "$status" == "running" ]]; then
-        echo "Container '$containerName' is running."
+        echo "Container '$containerNameBackEnd' is running."
         return 0
     else
-        echo "Container '$containerName' is not running."
+        echo "Container '$containerNameBackEnd' is not running."
         return 1
     fi
 }
 
 # Usage container is running
-is_container_running "$containerName"
+is_container_running "$containerNameBackEnd"
 
 # Function to get the mapped port of a Docker container
-containerPort=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "3000/tcp") 0).HostPort}}' "$containerName")
+containerPort=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "3000/tcp") 0).HostPort}}' "$containerNameBackEnd")
 
 
 # Configure the Nginx server
