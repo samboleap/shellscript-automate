@@ -1,13 +1,13 @@
 #!/bin/bash
 
+#Create trigger build jobs for Jenkins
+read -p "Please enter your Jenkins job name: " jenkins_job
+echo "Your Jenkins trigger job name is $jenkins_job"
+
 #Jenkins Authentication 
 username="master-jenkins"
 token="115cde8cb44bc1dbf8dff90a9985d34b76"
 jenkins_url="http://34.121.191.11:8080"
-
-#Create trigger build jobs for Jenkins
-read -p "Please enter your Jenkins job name: " jenkins_job
-echo "Your Jenkins trigger job name is $jenkins_job"
 
 # Prompt the user for parameter values
 
