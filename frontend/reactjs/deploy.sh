@@ -9,7 +9,7 @@ username="master-jenkins"
 token="115cde8cb44bc1dbf8dff90a9985d34b76"
 jenkins_url="http://34.121.191.11:8080"
 
-Prompt the user for parameter values
+# Prompt the user for parameter values
 
 echo "Please choose 'yes' for 'true' or 'no' for 'false' for dockerBuild:"
 read -p "yes or no: " input
@@ -122,25 +122,6 @@ echo "Your Repository URL is: $repoUrl"
 
 echo "============================================================================"
 
-# Prompt for the Nginx configuration file name
-echo "Please enter the Nginx configuration file name:"
-read nginx_dns
-
-# Trigger the Jenkins job with user-defined environment variables
-
-java -jar jenkins-cli.jar -auth $username:$token -s $jenkins_url -webSocket build JOB -v \
-    # -p dockerBuild=$dockerBuild \
-    -p deployDocker=$deployDocker \
-    -p choice=$choice \
-    -p registryDocker="$registryDocker" \
-    -p buildcontainerNameFrontEnd="$buildcontainerNameFrontEnd" \
-    -p containerNameFrontEnd="$containerNameFrontEnd" \
-    -p dockerTag="$dockerTag" \
-    -p repoUrl="$repoUrl" \
-    $jenkins_job
-
-echo "============================================================================"
-
 # Define the servers
 read -p "Enter the server1 IP address: " server1
 read -p "Enter the server2 IP address: " server2
@@ -157,11 +138,18 @@ echo "==========================================================================
 echo "Please enter your information needed to add a domain name certificate:"
 read -p "Enter the domain name of the server: " domain
 read -p "Enter your email address: " email
+
 # Validate domain and email input
 if [[ -z $domain || -z $email ]]; then
     echo "Domain name and email address cannot be empty. Exiting..."
     exit 1
 fi
+
+echo "============================================================================"
+
+# Prompt for the Nginx configuration file name
+echo "Please enter the Nginx configuration file name:"
+read nginx_dns
 
 # Validate Nginx configuration file
 nginx_conf="/etc/nginx/sites-available/$nginx_dns"
@@ -169,6 +157,19 @@ if [[ -e $nginx_conf ]]; then
     echo "The specified Nginx configuration file already exists. Please choose a different file name. Exiting..."
     exit 1
 fi
+
+# Trigger the Jenkins job with user-defined environment variables
+
+java -jar jenkins-cli.jar -auth $username:$token -s $jenkins_url -webSocket build -v \
+    -p dockerBuild=$dockerBuild \
+    -p deployDocker=$deployDocker \
+    -p choice=$choice \
+    -p registryDocker="$registryDocker" \
+    -p buildcontainerNameFrontEnd="$buildcontainerNameFrontEnd" \
+    -p containerNameFrontEnd="$containerNameFrontEnd" \
+    -p dockerTag="$dockerTag" \
+    -p repoUrl="$repoUrl" \
+    $jenkins_job
 
 # Function to check if a Docker container is running
 is_container_running() {
