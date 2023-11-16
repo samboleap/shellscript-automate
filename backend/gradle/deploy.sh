@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #Create trigger build jobs for Jenkins
-read -p "Please enter your Jenkins job name: " jenkins_job
+echo "Please enter your Jenkins job name: Library/gradle" 
+read jenkins_job
 echo "Your Jenkins trigger job name is $jenkins_job"
 
 #Jenkins Authentication 
