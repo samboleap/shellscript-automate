@@ -11,17 +11,17 @@ jenkins_url="http://34.121.191.11:8080"
 
 # Prompt the user for parameter values
 
-echo "Please choose 'yes' for 'true' or 'no' for 'false' for dockerBuild:"
-read -p "yes or no: " input
+# echo "Please choose 'yes' for 'true' or 'no' for 'false' for dockerBuild:"
+# read -p "yes or no: " input
 
-if [ "$input" = "yes" ]; then
-    dockerBuild=true
-elif [ "$input" = "no" ]; then
-    dockerBuild=false
-else
-    echo "Invalid with input! Please choose 'yes' for 'true' or 'no' for 'false' only!"
-    exit 1
-fi
+# if [ "$input" = "yes" ]; then
+#     dockerBuild=true
+# elif [ "$input" = "no" ]; then
+#     dockerBuild=false
+# else
+#     echo "Invalid with input! Please choose 'yes' for 'true' or 'no' for 'false' only!"
+#     exit 1
+# fi
 
 echo "============================================================================"
 
@@ -129,7 +129,7 @@ read nginx_dns
 # Trigger the Jenkins job with user-defined environment variables
 
 java -jar jenkins-cli.jar -auth $username:$token -s $jenkins_url -webSocket build -v \
-    -p dockerBuild=$dockerBuild \
+    # -p dockerBuild=$dockerBuild \
     -p deployDocker=$deployDocker \
     -p choice=$choice \
     -p registryDocker="$registryDocker" \
