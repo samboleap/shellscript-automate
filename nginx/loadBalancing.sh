@@ -70,11 +70,16 @@ http {
 echo "$nginx_server" | sudo tee "$nginx_conf" > /dev/null
 
 # Create a symbolic link between the sites-available and sites-enabled directories in Nginx
-sudo ln -s "$nginx_conf" /etc/nginx/sites-enabled/
+sudo rm -f "/etc/nginx/sites-enabled/$nginx_dns"
+sudo ln -s "$nginx_conf" "/etc/nginx/sites-enabled/$nginx_dns"
 echo "Successfully linked the configuration file for '$nginx_dns' from sites-available to sites-enabled."
 
 # Test running with Nginx configuration
 sudo nginx -t
+if [[ $? -ne 0 ]]; then
+    echo "Nginx configuration test failed. Please check your Nginx configuration."
+    exit 1
+fi
 echo "Nginx configuration test successful."
 
 # Obtain SSL certificate using Certbot
